@@ -1,6 +1,6 @@
 # archx
 
-###to install the library
+### To install the library
 
 #### Gradle
 ```
