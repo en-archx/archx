@@ -1,11 +1,16 @@
 # archx
 
-`Archx` is an experimental architecture developed to provide consistency in every application components structure hence making it predictable or easy to read. 
+`Archx` is an experimental architecture developed to provide consistency in every application components structure making it predictable or easy to read. 
 
 Like any kind of `mvp`, `Archx` have `model-view-presenter`(obviously) but with a buffed presenter.
 
 #### The `Presenter`
-`Archx`'s `presenter` contains two(2) `Relay`s, one for incoming `events` and one for outgoing `states`. [WIP]
+`Archx`'s `presenter` extends [Googles AAC](https://github.com/googlesamples/android-architecture-components/tree/master/GithubBrowserSample) `ViewModel` for two reasons;
+_(still deciding and consulting people about this)_
+1. It out-lives android-components (`Activity`, `Fragment`) on configuration changes.
+2. It can be shared between multiple android-components.
+
+**Anatomy**, the `presenter` contains two `Relay`s, one for incoming `events` and one for outgoing `states`. States in this architecture is yield using previous state and `action-results`, since previous states is needed, `rx` `scan` operator is used in its main stream to hold the latest `state`. [WIP]
 
 #### The `View`
 [WIP]
