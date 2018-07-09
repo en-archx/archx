@@ -5,6 +5,8 @@ import android.arch.lifecycle.ViewModel;
 import com.jakewharton.rxrelay2.BehaviorRelay;
 import com.jakewharton.rxrelay2.PublishRelay;
 
+import java.util.Map;
+
 import co.en.archx.archx.transferobjects.Action;
 import co.en.archx.archx.transferobjects.Event;
 import co.en.archx.archx.transferobjects.Result;
@@ -16,13 +18,15 @@ import io.reactivex.functions.BiFunction;
 import io.reactivex.functions.Consumer;
 import io.reactivex.functions.Function;
 
-abstract class IPresenter<
+public abstract class IPresenter<
         E extends Event<A>,
         A extends Action,
         R extends Result,
         S extends State> extends ViewModel {
 
     private CompositeDisposable disposables = new CompositeDisposable();
+
+    private boolean isInitialized = false;
 
     private PublishRelay<E> eventRelay = PublishRelay.create();
 
@@ -69,7 +73,16 @@ abstract class IPresenter<
         super.onCleared();
     }
 
-    abstract BiFunction<S, R, S> reducer();
+    public void init(Map<String, Object> data) {
+        if(isInitialized) return;
 
-    abstract ObservableTransformer<A, R> actionToResult();
+        isInitialized = true;
+        onInit(data);
+    }
+
+    protected abstract void onInit(Map<String, Object> data);
+
+    protected abstract BiFunction<S, R, S> reducer();
+
+    protected abstract ObservableTransformer<A, R> actionToResult();
 }

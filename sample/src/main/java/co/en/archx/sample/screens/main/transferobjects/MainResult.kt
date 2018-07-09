@@ -1,4 +1,4 @@
-package co.en.archx.sample.transferobjects
+package co.en.archx.sample.screens.main.transferobjects
 
 import co.en.archx.archx.transferobjects.Result
 
