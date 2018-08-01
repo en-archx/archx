@@ -1,10 +1,10 @@
-package co.en.archx.sample.screens.main
+package co.en.archx.sample.ui.activity.main
 
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import co.en.archx.sample.R
-import co.en.archx.sample.screens.main.transferobjects.MainEvent
-import co.en.archx.sample.screens.main.transferobjects.MainState
+import co.en.archx.sample.ui.activity.main.transferobjects.MainEvent
+import co.en.archx.sample.ui.activity.main.transferobjects.MainState
 import com.jakewharton.rxrelay2.BehaviorRelay
 import com.jakewharton.rxrelay2.PublishRelay
 import io.reactivex.Observable

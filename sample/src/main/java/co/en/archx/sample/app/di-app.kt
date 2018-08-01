@@ -1,10 +1,10 @@
 package co.en.archx.sample.app
 
 import android.content.Context
-import co.en.archx.sample.app.dimodules.ActivityModule
-import co.en.archx.sample.app.dimodules.NetworkModule
-import co.en.archx.sample.app.dimodules.RestModule
-import co.en.archx.sample.app.dimodules.ViewModelFactoryModule
+import co.en.archx.sample.app.modules.ActivityModule
+import co.en.archx.sample.app.modules.NetworkModule
+import co.en.archx.sample.app.modules.RestModule
+import co.en.archx.sample.app.modules.ViewModelFactoryModule
 import dagger.Component
 import dagger.Module
 import dagger.Provides

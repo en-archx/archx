@@ -7,10 +7,10 @@ import com.jakewharton.rxrelay2.PublishRelay;
 
 import java.util.Map;
 
-import co.en.archx.archx.transferobjects.Action;
-import co.en.archx.archx.transferobjects.Event;
-import co.en.archx.archx.transferobjects.Result;
-import co.en.archx.archx.transferobjects.State;
+import co.en.archx.archx.medium.Action;
+import co.en.archx.archx.medium.Event;
+import co.en.archx.archx.medium.Result;
+import co.en.archx.archx.medium.State;
 import io.reactivex.Observable;
 import io.reactivex.ObservableTransformer;
 import io.reactivex.disposables.CompositeDisposable;
@@ -55,10 +55,6 @@ public abstract class IPresenter<
         );
     }
 
-    public Observable<E> events() {
-        return eventRelay.hide();
-    }
-
     public Observable<S> states() {
         return stateRelay.hide();
     }
@@ -67,22 +63,22 @@ public abstract class IPresenter<
         eventRelay.accept(event);
     }
 
-    @Override
-    protected void onCleared() {
-        disposables.dispose();
-        super.onCleared();
-    }
-
-    public void init(Map<String, Object> data) {
+    public void init(Object ... data) {
         if(isInitialized) return;
 
         isInitialized = true;
         onInit(data);
     }
 
-    protected abstract void onInit(Map<String, Object> data);
+    protected abstract void onInit(Object ... data);
 
     protected abstract BiFunction<S, R, S> reducer();
 
     protected abstract ObservableTransformer<A, R> actionToResult();
+
+    @Override
+    protected void onCleared() {
+        disposables.dispose();
+        super.onCleared();
+    }
 }

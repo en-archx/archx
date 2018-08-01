@@ -1,8 +1,8 @@
-package co.en.archx.sample.app.dimodules
+package co.en.archx.sample.app.modules
 
 import android.app.Activity
-import co.en.archx.sample.screens.main.MainActivity
-import co.en.archx.sample.screens.main.MainActivitySubcomponent
+import co.en.archx.sample.ui.activity.main.MainActivity
+import co.en.archx.sample.ui.activity.main.MainActivitySubcomponent
 import dagger.Binds
 import dagger.Module
 import dagger.android.ActivityKey

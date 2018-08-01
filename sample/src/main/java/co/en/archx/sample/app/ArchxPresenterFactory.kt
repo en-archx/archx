@@ -2,7 +2,7 @@ package co.en.archx.sample.app
 
 import android.arch.lifecycle.ViewModel
 import android.arch.lifecycle.ViewModelProvider
-import co.en.archx.sample.screens.main.MainPresenter
+import co.en.archx.sample.ui.activity.main.MainPresenter
 
 
 @Suppress("UNCHECKED_CAST")

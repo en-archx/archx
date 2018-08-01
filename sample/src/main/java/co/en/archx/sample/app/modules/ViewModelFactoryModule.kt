@@ -1,4 +1,4 @@
-package co.en.archx.sample.app.dimodules
+package co.en.archx.sample.app.modules
 
 import android.arch.lifecycle.ViewModelProvider
 import co.en.archx.sample.app.AppScope

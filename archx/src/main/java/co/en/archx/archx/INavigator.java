@@ -4,4 +4,5 @@ public interface INavigator<S extends INavigator.Signal> {
 
     interface Signal {}
 
+    void navigate(S signal);
 }

@@ -1,4 +1,4 @@
-package co.en.archx.sample.app.dimodules
+package co.en.archx.sample.app.modules
 
 import android.content.Context
 import android.util.Log

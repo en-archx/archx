@@ -1,4 +1,4 @@
-package co.en.archx.sample.app.dimodules
+package co.en.archx.sample.app.modules
 
 import co.en.archx.sample.app.api.RedditApi
 import co.en.archx.sample.app.AppScope

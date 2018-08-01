@@ -1,4 +1,4 @@
-package co.en.archx.sample.screens.main
+package co.en.archx.sample.ui.activity.main
 
 import dagger.Module
 import dagger.Subcomponent
