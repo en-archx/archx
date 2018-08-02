@@ -2,7 +2,7 @@
 
 `Archx` is an experimental architecture developed to provide consistency in every application component structure, making it predictable or easy to read. 
 
-The architecture is build using `rxjava`. Its reactive nature will serve as an extra layer of abstraction from/to each MVP component. View push events to Presenter using a stream, Presenter will push states to View also using a stream. There is a good reason for doing this, and mainly to manage state. Jake Wharton has a great talk about this, in fact most of the idea here is from that talk, I encourage you to watch it. [Managing states with RxJava by Jake Wharton](https://www.softwaretalks.io/v/1169/managing-state-with-rxjava-by-jake-wharton)
+The architecture is built using `rxjava`. Its reactive nature will serve as an extra layer of abstraction from/to each MVP component. View push events to Presenter using a stream, Presenter will push states to View also using a stream. There is a good reason for doing this, and mainly to manage state. Jake Wharton has a great talk about this, in fact most of the idea here is from that talk, I encourage you to watch it. [Managing states with RxJava by Jake Wharton](https://www.softwaretalks.io/v/1169/managing-state-with-rxjava-by-jake-wharton)
 
 Like any kind of `mvp`, `Archx` have `model-view-presenter`(obviously) but with a buffed presenter.
 
@@ -46,7 +46,7 @@ Notice the two relays `eventRelay` and `stateRelay`, these are the ends of the p
 
 You kinda get here that it has a single direction, events-to-state. A little similar to `Flux` by facebook, if you heard of it.
 
-`actionToResult()` is a method returning an `ObservableTransformmer`, this is the part where the actual logic is executed. Data emitted from `eventRelay` is converted into `action` then this yields `results`. For example, consider a page with a list of dogs, here's the data flow from event to action; _dogs-list-bottom-reached-event_ -> _load-dogs-action_ -> _dogs-loaded-result_.
+`actionToResult()` is a method returning an `ObservableTransformmer`, this is the part where the actual logic is executed. Data emitted from `eventRelay` is converted into `action` then this yields `results`. For example, consider a page with a list of dogs, here's the data flow from event to result; _dogs-list-bottom-reached-event_ -> _load-dogs-action_ -> _dogs-loaded-result_.
 
 `initialState` is the first state of the ui
 
@@ -139,13 +139,22 @@ data class MainState(val dogs: List<Dogs>,
 }
 ```
 
-This state will be rendered by the view, the `dogs` will populate a `RecyclerView` for example, `isLoading` if true, will show a `ProgressBar`, then `error` will show an error toast.
+This state will be rendered by the view, the `dogs` will populate a `RecyclerView` for example.
+`isLoading` if true, will show a `ProgressBar`. 
+Then `error` will show an error toast.
 
 #### The `View`
-[WIP]
+The view looks like this
+```Kotlin
+interface MainView {
 
-#### The `Model`
-[WIP]
+    fun event(): Observable<MainEvent>
+    
+    fun render(state: MainState)
+}
+```
+
+I will be uploading a sample application soon that uses this architecture.
 
 ### To install the library
 
