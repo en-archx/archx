@@ -1,9 +1,9 @@
 package co.en.archx.archx;
 
 
-import co.en.archx.archx.transferobjects.Action;
-import co.en.archx.archx.transferobjects.Event;
-import co.en.archx.archx.transferobjects.State;
+import co.en.archx.archx.medium.Action;
+import co.en.archx.archx.medium.Event;
+import co.en.archx.archx.medium.State;
 import io.reactivex.Observable;
 
 public interface IView<E extends Event<? extends Action>, S extends State> {
