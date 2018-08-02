@@ -16,7 +16,7 @@ Using `Googles AAC` `ViewModel` will also mean that the consumer of this library
 
 
 **The Presenter's anatomy**
-```Java
+```Kotlin
       eventRelay
           .map{ event.toAction(); }
           .compose(actionToResult())
