@@ -17,24 +17,11 @@ Using `Googles AAC` `ViewModel` will also mean that the consumer of this library
 
 **The Presenter's anatomy**
 ```Java
-                eventRelay.map(
-                        new Function<E, A>() {
-                            @Override
-                            public A apply(E event) {
-                                return event.toAction();
-                            }
-                        }
-                )
-                .compose(actionToResult())
-                .scan(initialState, reducer())
-                .subscribe(
-                        new Consumer<S>() {
-                            @Override
-                            public void accept(S state) {
-                                stateRelay.accept(state);
-                            }
-                        }
-                )
+      eventRelay
+          .map{ event.toAction(); }
+          .compose(actionToResult())
+          .scan(initialState, reducer())
+          .subscribe { stateRelay.accept(state); }
 ```
 What was shown above is the very core of this architecture, this rest in the `Presenter`. Where going to review each part. 
 
@@ -51,6 +38,8 @@ You kinda get here that it has a single direction, events-to-state. A little sim
 `initialState` is the first state of the ui
 
 `reducer()` is a `BiFunction` that gets the previous `state` and a `result`, then yields a new `state`. Continuing the example above it will become, _dogs-list-bottom-reached-event_ -> _load-dogs-action_ -> _dogs-loaded-result_ -> _dog-list-state_.
+
+Lastly, the state goes in to the `stateRelay` ready to be emitted to any attached observable.
 
 To understand further, let me give you a concrete version of the example above,
 
@@ -83,7 +72,7 @@ This is an example eof an `action-method`.
         }
     }
 ```
-Theres three parts I want to highlight in this observable transformer. First is the `map { MainResult.DogsLoaded(it.data) }`, the result from different data source, like server for example, is wrap in to a `result`. Now incase error is encoutered, the observable is not broken, `onErrorReturn { MainResult.DogsLoadFail(it) }` will catch the error and it will be wrapped as a `result` then the `startWith(MainResult.DogsLoading)`, this is called before the `dogsRepository.loadDogs()`.
+Theres three parts I want to highlight in this observable transformer. First is the `map { MainResult.DogsLoaded(it.data) }`, the result from different data source, like server for example, is wrap in to a `result`. Now incase error is encoutered, the observable normally breaks and send a terminal data and we dont want that to happen, using `onErrorReturn { MainResult.DogsLoadFail(it) }`, errors will be catched and wrapped as a `result`. Then the `startWith(MainResult.DogsLoading)`, this is called before the `dogsRepository.loadDogs()`.
 
 In the `reducer()` each `result` has its `state` method counterpart.
 ```Kotlin
@@ -154,7 +143,10 @@ interface MainView {
 }
 ```
 
-I will be uploading a sample application soon that uses this architecture.
+
+
+If you notice something wrong, or you foresee a problem that this architecture will encounter, feel free to write an issue. 
+**And PR's are very welcome.** I will be uploading a sample application soon that uses this architecture.
 
 ### To install the library
 
