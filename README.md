@@ -18,10 +18,10 @@ Using `Googles AAC` `ViewModel` will also mean that the consumer of this library
 **The Presenter's anatomy**
 ```Kotlin
       eventRelay
-          .map{ event.toAction(); }
+          .map { event.toAction() }
           .compose(actionToResult())
           .scan(initialState, reducer())
-          .subscribe { stateRelay.accept(state); }
+          .subscribe { stateRelay.accept(state) }
 ```
 What was shown above is the very core of this architecture, this rest in the `Presenter`. Where going to review each part. 
 
