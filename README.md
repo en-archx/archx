@@ -17,11 +17,11 @@ Using `Googles AAC` `ViewModel` will also mean that the consumer of this library
 
 **The Presenter's anatomy**
 ```Kotlin
-      eventRelay
-          .map { event.toAction() }
-          .compose(actionToResult())
-          .scan(initialState, reducer())
-          .subscribe { stateRelay.accept(state) }
+eventRelay
+    .map { event.toAction() }
+    .compose(actionToResult())
+    .scan(initialState, reducer())
+    .subscribe { stateRelay.accept(state) }
 ```
 What was shown above is the very core of this architecture, this rest in the `Presenter`. Where going to review each part. 
 
@@ -45,51 +45,51 @@ To understand further, let me give you a concrete version of the example above,
 
 `actionToResult()` often looks like this, its a merge of `action-method`s
 ```Kotlin
-    override fun actionToResult(): ObservableTransformer<MainAction, MainResult> {
-        return ObservableTransformer { 
-            it.publish { 
-                Observable.merge(
-                        it.ofType(MainAction.DogsListBottomReached::class.java)
-                                .compose(loadDogs()),
-                        it.ofType(MainAction.AnotherEvent::class.java)
-                                .compose(anotherActionMethod())
-                )
-            }
+override fun actionToResult(): ObservableTransformer<MainAction, MainResult> {
+    return ObservableTransformer { 
+        it.publish { 
+            Observable.merge(
+                    it.ofType(MainAction.DogsListBottomReached::class.java)
+                            .compose(loadDogs()),
+                    it.ofType(MainAction.AnotherEvent::class.java)
+                            .compose(anotherActionMethod())
+            )
         }
     }
+}
 ```
 This is an example eof an `action-method`. 
 ```Kotlin
-    private fun loadDogs(): ObservableTransformer<MainAction.LoadMoreDogs, MainResult> {
-        return ObservableTransformer {
-            it.flatMap {
-                dogsRepository.loadDogs()
-                        .map { MainResult.DogsLoaded(it.data) }
-                        .onErrorReturn { MainResult.DogsLoadFail(it) }
-                        .startWith(MainResult.DogsLoading)
-                        .observeOn(AndroidSchedulers.mainThread())
-            }
+private fun loadDogs(): ObservableTransformer<MainAction.LoadMoreDogs, MainResult> {
+    return ObservableTransformer {
+        it.flatMap {
+            dogsRepository.loadDogs()
+                    .map { MainResult.DogsLoaded(it.data) }
+                    .onErrorReturn { MainResult.DogsLoadFail(it) }
+                    .startWith(MainResult.DogsLoading)
+                    .observeOn(AndroidSchedulers.mainThread())
         }
     }
+}
 ```
 Theres three parts I want to highlight in this observable transformer. First is the `map { MainResult.DogsLoaded(it.data) }`, the result from different data source, like server for example, is wrap in to a `result`. Now incase error is encoutered, the observable normally breaks and send a terminal data and we dont want that to happen, using `onErrorReturn { MainResult.DogsLoadFail(it) }`, errors will be catched and wrapped as a `result`. Then the `startWith(MainResult.DogsLoading)`, this is called before the `dogsRepository.loadDogs()`.
 
 In the `reducer()` each `result` has its `state` method counterpart.
 ```Kotlin
-    override fun reducer(): BiFunction<MainState, MainResult, MainState> {
-        return BiFunction { prevState, result ->
-            when(result) {
-                is MainResult.DogsLoaded ->
-                        prevState.dogsLoaded(result.data)
+override fun reducer(): BiFunction<MainState, MainResult, MainState> {
+    return BiFunction { prevState, result ->
+        when(result) {
+            is MainResult.DogsLoaded ->
+                    prevState.dogsLoaded(result.data)
 
-                is MainResult.DogsLoading ->
-                        prevState.dogsLoading()
+            is MainResult.DogsLoading ->
+                    prevState.dogsLoading()
 
-                is MainResult.DogsLoadFail ->
-                        prevState.dogsLoadFail(result.error)
-            }
+            is MainResult.DogsLoadFail ->
+                    prevState.dogsLoadFail(result.error)
         }
     }
+}
 ```
 
 Now lets look at the `state`
@@ -151,16 +151,19 @@ If you notice something wrong, or you foresee a problem that this architecture w
 ### To install the library
 
 #### Gradle
+Put this on your root-level `build.gradle`
 ```gradle
-implementation 'co.en.archx:archx:0.0.1'
+maven {
+    url "https://dl.bintray.com/novo-dimaporo/archx"
+}
 ```
-
-#### Maven
-```xml
-<dependency>
-  <groupId>co.en.archx</groupId>
-  <artifactId>archx</artifactId>
-  <version>0.0.1</version>
-  <type>pom</type>
-</dependency>
+Then put this in your module-level `build.gradle`
+```gradle
+implementation 'co.en.archx:archx:0.0.2'
+```
+You might also need to import rxjava library that `archx` depends on
+```gradle
+implementation 'io.reactivex.rxjava2:rxjava:2.1.4'
+implementation 'io.reactivex.rxjava2:rxandroid:2.0.1'
+implementation 'com.jakewharton.rxrelay2:rxrelay:2.0.0'
 ```
