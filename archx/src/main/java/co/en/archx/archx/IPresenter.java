@@ -4,9 +4,6 @@ import android.arch.lifecycle.ViewModel;
 
 import com.jakewharton.rxrelay2.BehaviorRelay;
 import com.jakewharton.rxrelay2.PublishRelay;
-
-import java.util.Map;
-
 import co.en.archx.archx.medium.Action;
 import co.en.archx.archx.medium.Event;
 import co.en.archx.archx.medium.Result;

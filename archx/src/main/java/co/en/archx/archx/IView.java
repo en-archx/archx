@@ -11,4 +11,5 @@ public interface IView<E extends Event<? extends Action>, S extends State> {
     Observable<E> events();
 
     void render(S state);
+
 }
