@@ -1,3 +1,18 @@
+# Contributing to Archx
+
+If you would like to contribute code you can do so through GitHub by forking the repository and sending a pull request targeting the branch `develop`.
+
+When submitting code, please make every effort to follow existing conventions and style in order to keep the code as readable as possible.
+
+## License
+
+By contributing your code, you agree to license your contribution under the terms of the APLv2: https://github.com/en-archx/archx/blob/master/LICENSE
+
+All files are released with the Apache 2.0 license.
+
+If you are adding a new file it should have a header like this:
+
+```
 /**
  * Copyright (c) 2018-present, Archx Contributors.
  * 
@@ -13,24 +28,4 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
-package co.en.archx.archx.medium;
-
-/**
- * <p>
- *     Results, or better called as action results.
- *     <br><br>
- *     Example:<br>
- *     A result derived from performing the action.
- * </p>
- *
- * <pre> {@code
- *
- * LoadDogs -> DogsLoading
- * or
- * LoadDogs -> DogsLoadFail
- * or
- * LoadDogs -> DogsLoaded
- * } </pre>
- */
-public interface Result { }
+ ```
