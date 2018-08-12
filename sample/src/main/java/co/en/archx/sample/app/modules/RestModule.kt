@@ -13,7 +13,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 import javax.inject.Named
 
 /**
- * Created by n-121 on 18/01/2018.
+ *
  */
 @Module
 class RestModule {

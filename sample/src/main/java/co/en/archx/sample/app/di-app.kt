@@ -26,18 +26,18 @@ annotation class ArchxAppContext
 	NetworkModule::class, RestModule::class, ActivityModule::class])
 interface ArchxAppComponent {
 
-    fun inject(app: ArchxSampleApp)
+    fun inject(app: RedditApp)
 
     @ArchxAppContext
     fun context(): Context
 }
 
 @Module
-class ArchxAppModule(private val app : ArchxSampleApp) {
+class ArchxAppModule(private val app : RedditApp) {
 
     @Provides
     @AppScope
-    fun app(): ArchxSampleApp = app
+    fun app(): RedditApp = app
 
     @Provides
     @AppScope

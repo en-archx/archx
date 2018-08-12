@@ -7,9 +7,9 @@ import co.en.archx.sample.ui.activity.main.MainPresenter
 
 @Suppress("UNCHECKED_CAST")
 /**
- * Mother of View Models
+ *
  */
-class ArchxPresenterFactory : ViewModelProvider.NewInstanceFactory() {
+class RedditPresenterFactory : ViewModelProvider.NewInstanceFactory() {
 
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
         return with(modelClass) {

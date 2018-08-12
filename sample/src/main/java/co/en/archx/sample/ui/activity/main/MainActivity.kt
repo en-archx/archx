@@ -3,13 +3,13 @@ package co.en.archx.sample.ui.activity.main
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import co.en.archx.sample.R
-import co.en.archx.sample.ui.activity.main.transferobjects.MainEvent
-import co.en.archx.sample.ui.activity.main.transferobjects.MainState
+import co.en.archx.sample.ui.activity.main.medium.MainEvent
+import co.en.archx.sample.ui.activity.main.medium.MainState
 import com.jakewharton.rxrelay2.BehaviorRelay
 import com.jakewharton.rxrelay2.PublishRelay
 import io.reactivex.Observable
 
-class MainActivity : AppCompatActivity(), MainView {
+class MainActivity : AppCompatActivity(), MainContract.View {
 
     private val eventRelay = PublishRelay.create<MainEvent>()
 

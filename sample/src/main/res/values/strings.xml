@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">archx</string>
+    <string name="search">Search...</string>
+    <string name="top">top</string>
+    <string name="hot">hot</string>
+    <string name="nw">new</string>
+    <string name="controversial">controversial</string>
 </resources>
