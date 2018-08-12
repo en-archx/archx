@@ -1,4 +1,4 @@
-package co.en.archx.sample.app.repository
+package co.en.archx.sample.repositories
 
 import co.en.archx.sample.app.api.RedditApi
 import co.en.archx.sample.app.api.response.RedditResponse
