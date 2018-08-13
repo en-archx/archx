@@ -37,7 +37,7 @@ ext {
     siteUrl = 'https://github.com/novo-dimaporo/archx'
     gitUrl = 'https://github.com/novo-dimaporo/archx.git'
 
-    libraryVersion = '0.0.1'
+    libraryVersion = '0.0.3'
 
     developerId = 'novo-dimaporo'
     developerName = 'Novo Dimaporo'
