@@ -159,7 +159,7 @@ maven {
 ```
 Then put this in your module-level `build.gradle`
 ```gradle
-implementation 'co.en.archx:archx:0.0.2'
+implementation 'co.en.archx:archx:0.0.4'
 ```
 You might also need to import rxjava library that `archx` depends on
 ```gradle

@@ -17,6 +17,7 @@
 package co.en.archx.archx;
 
 import android.arch.lifecycle.ViewModel;
+import android.util.Log;
 
 import com.jakewharton.rxrelay2.BehaviorRelay;
 import com.jakewharton.rxrelay2.PublishRelay;
@@ -45,26 +46,61 @@ public abstract class IPresenter<
 
     private BehaviorRelay<S> stateRelay = BehaviorRelay.create();
 
+    public String tag = toString();
+
     public IPresenter(S initialState) {
         disposables.add(
-                eventRelay.map(
-                        new Function<E, A>() {
-                            @Override
-                            public A apply(E event) {
-                                return event.toAction();
-                            }
-                        }
-                )
-                .compose(actionToResult())
-                .scan(initialState, reducer())
-                .subscribe(
-                        new Consumer<S>() {
-                            @Override
-                            public void accept(S state) {
-                                stateRelay.accept(state);
-                            }
-                        }
-                )
+                eventRelay
+                        .doOnNext(
+                                new Consumer<E>() {
+                                    @Override
+                                    public void accept(E event) {
+                                        Log.d(tag, "[EVT]::=> " + event.toString());
+                                    }
+                                }
+                        )
+                        .map(
+                                new Function<E, A>() {
+                                    @Override
+                                    public A apply(E event) {
+                                        return event.toAction();
+                                    }
+                                }
+                        )
+                        .doOnNext(
+                                new Consumer<A>() {
+                                    @Override
+                                    public void accept(A action) {
+                                        Log.d(tag, "[ACT]::=> " + action.toString());
+                                    }
+                                }
+                        )
+                        .compose(actionToResult())
+                        .doOnNext(
+                                new Consumer<R>() {
+                                    @Override
+                                    public void accept(R result) {
+                                        Log.d(tag, "[RST]::=> " + result.toString());
+                                    }
+                                }
+                        )
+                        .scan(initialState, reducer())
+                        .doOnNext(
+                                new Consumer<S>() {
+                                    @Override
+                                    public void accept(S state) {
+                                        Log.d(tag, "[STT]::=> " + state.toString());
+                                    }
+                                }
+                        )
+                        .subscribe(
+                                new Consumer<S>() {
+                                    @Override
+                                    public void accept(S state) {
+                                        stateRelay.accept(state);
+                                    }
+                                }
+                        )
         );
     }
 

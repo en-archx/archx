@@ -64,5 +64,5 @@ dependencies {
     implementation 'com.squareup.retrofit2:converter-gson:2.3.0'
     implementation 'com.google.code.gson:gson:2.8.2'
 
-    implementation 'co.en.archx:archx:0.0.3'
+    implementation 'co.en.archx:archx:0.0.4'
 }
