@@ -2,20 +2,26 @@ package co.en.archx.sample.app
 
 import android.arch.lifecycle.ViewModel
 import android.arch.lifecycle.ViewModelProvider
+import co.en.archx.sample.repositories.PostRepository
 import co.en.archx.sample.ui.activity.main.MainPresenter
+import io.reactivex.Scheduler
+import io.reactivex.android.schedulers.AndroidSchedulers
 
 
 @Suppress("UNCHECKED_CAST")
 /**
  *
  */
-class RedditPresenterFactory : ViewModelProvider.NewInstanceFactory() {
+class RedditPresenterFactory(private val postRepository: PostRepository)
+    : ViewModelProvider.NewInstanceFactory() {
+
+    private val outputScheduler: Scheduler = AndroidSchedulers.mainThread()
 
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
         return with(modelClass) {
             when {
                 isAssignableFrom(MainPresenter::class.java) ->
-                    MainPresenter()
+                    MainPresenter(outputScheduler, postRepository)
 
                 else ->
                     throw IllegalArgumentException("Unknown ViewModel class: ${modelClass.name}")

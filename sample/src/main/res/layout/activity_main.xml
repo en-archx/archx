@@ -3,8 +3,10 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:focusableInTouchMode="true"
     tools:context=".ui.activity.main.MainActivity">
 
     <android.support.design.widget.AppBarLayout
@@ -13,7 +15,7 @@
         <android.support.design.widget.CollapsingToolbarLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:layout_scrollFlags="scroll|exitUntilCollapsed|snap">
+            app:layout_scrollFlags="scroll">
             <android.support.v7.widget.Toolbar
                 android:layout_width="match_parent"
                 android:layout_height="?android:attr/actionBarSize"
@@ -21,6 +23,7 @@
                 android:padding="8dp">
 
                 <EditText
+                    android:id="@+id/search_edittext"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:hint="@string/search"
@@ -36,6 +39,7 @@
             android:paddingBottom="4dp"
             android:orientation="horizontal">
             <TextView
+                android:id="@+id/top_button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAllCaps="true"
@@ -46,16 +50,17 @@
                 android:paddingTop="4dp"
                 android:paddingEnd="12dp"
                 android:paddingBottom="4dp"
-                android:textColor="@color/colorTextDisabled"
+                android:textColor="@color/blue_gray_selector"
                 />
             <View
                 android:layout_width="1dp"
                 android:layout_height="match_parent"
-                android:background="@color/colorTextDisabled"
+                android:background="@color/colorTextDivider"
                 android:layout_marginTop="4dp"
                 android:layout_marginBottom="4dp"
                 />
             <TextView
+                android:id="@+id/hot_button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAllCaps="true"
@@ -66,16 +71,17 @@
                 android:paddingTop="4dp"
                 android:paddingEnd="12dp"
                 android:paddingBottom="4dp"
-                android:textColor="@color/colorTextDisabled"
+                android:textColor="@color/blue_gray_selector"
                 />
             <View
                 android:layout_width="1dp"
                 android:layout_height="match_parent"
-                android:background="@color/colorTextDisabled"
+                android:background="@color/colorTextDivider"
                 android:layout_marginTop="4dp"
                 android:layout_marginBottom="4dp"
                 />
             <TextView
+                android:id="@+id/new_button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAllCaps="true"
@@ -86,16 +92,17 @@
                 android:paddingTop="4dp"
                 android:paddingEnd="12dp"
                 android:paddingBottom="4dp"
-                android:textColor="@color/colorTextDisabled"
+                android:textColor="@color/blue_gray_selector"
                 />
             <View
                 android:layout_width="1dp"
                 android:layout_height="match_parent"
-                android:background="@color/colorTextDisabled"
+                android:background="@color/colorTextDivider"
                 android:layout_marginTop="4dp"
                 android:layout_marginBottom="4dp"
                 />
             <TextView
+                android:id="@+id/controversial_button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAllCaps="true"
@@ -106,7 +113,7 @@
                 android:paddingTop="4dp"
                 android:paddingEnd="12dp"
                 android:paddingBottom="4dp"
-                android:textColor="@color/colorTextDisabled"
+                android:textColor="@color/blue_gray_selector"
                 />
         </LinearLayout>
     </android.support.design.widget.AppBarLayout>

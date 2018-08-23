@@ -1,21 +1,15 @@
 package co.en.archx.sample.app.modules
 
-import android.app.Activity
 import co.en.archx.sample.ui.activity.main.MainActivity
-import co.en.archx.sample.ui.activity.main.MainActivitySubcomponent
-import dagger.Binds
+import co.en.archx.sample.ui.activity.main.MainScope
 import dagger.Module
-import dagger.android.ActivityKey
-import dagger.android.AndroidInjector
-import dagger.multibindings.IntoMap
+import dagger.android.ContributesAndroidInjector
 
-@Module(subcomponents = [MainActivitySubcomponent::class])
+@Module()
 abstract class ActivityModule {
 
-    @Binds
-    @IntoMap
-    @ActivityKey(MainActivity::class)
-    abstract fun bindChatActivityInjectorFactory(builder: MainActivitySubcomponent.Builder)
-            : AndroidInjector.Factory<out Activity>
+    @ContributesAndroidInjector
+    @MainScope
+    abstract fun contributeMainActivity(): MainActivity
 
 }

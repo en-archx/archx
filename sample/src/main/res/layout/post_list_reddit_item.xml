@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <TextView
+        android:id="@+id/title"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:maxLines="2"
+        android:textSize="18sp"
+        android:paddingLeft="12dp"
+        android:paddingTop="12dp"
+        android:paddingRight="12dp"
+        android:ellipsize="end"
+        android:fontFamily="sans-serif-medium"
+        android:textColor="@color/colorTextPrimary"
+        />
+
+    <TextView
+        android:id="@+id/subreddit"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/title"
+        android:paddingLeft="12dp"
+        android:paddingBottom="12dp"
+        android:textColor="@color/colorTextPrimary"
+        android:textSize="12sp"
+        />
+
+    <TextView
+        android:id="@+id/author"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toEndOf="@id/subreddit"
+        app:layout_constraintTop_toBottomOf="@id/title"
+        android:paddingLeft="4dp"
+        android:paddingBottom="12dp"
+        android:paddingRight="12dp"
+        android:textColor="@color/colorTextSecondary"
+        android:textSize="12sp"
+        />
+
+    <ImageView
+        android:id="@+id/thumbnail"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:scaleType="centerCrop"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/subreddit"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintDimensionRatio="H,1:1"/>
+
+    <ImageView
+        android:id="@+id/ups_icon"
+        android:layout_width="18dp"
+        android:layout_height="18dp"
+        android:layout_marginLeft="12dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="12dp"
+        android:src="@drawable/ic_arrow_upward_black_24dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/thumbnail"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:tint="@color/colorAccent"
+        />
+
+    <TextView
+        android:id="@+id/ups"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toEndOf="@id/ups_icon"
+        app:layout_constraintTop_toTopOf="@id/ups_icon"
+        app:layout_constraintBottom_toBottomOf="@id/ups_icon"
+        android:textColor="@color/colorAccent"
+        android:textSize="14sp"
+        android:layout_marginLeft="4dp"
+        />
+
+</android.support.constraint.ConstraintLayout>

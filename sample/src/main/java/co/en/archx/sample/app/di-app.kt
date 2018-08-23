@@ -1,10 +1,7 @@
 package co.en.archx.sample.app
 
 import android.content.Context
-import co.en.archx.sample.app.modules.ActivityModule
-import co.en.archx.sample.app.modules.NetworkModule
-import co.en.archx.sample.app.modules.RestModule
-import co.en.archx.sample.app.modules.ViewModelFactoryModule
+import co.en.archx.sample.app.modules.*
 import dagger.Component
 import dagger.Module
 import dagger.Provides
@@ -23,7 +20,8 @@ annotation class ArchxAppContext
 @AppScope
 @Component(modules = [
 	ArchxAppModule::class, ViewModelFactoryModule::class,
-	NetworkModule::class, RestModule::class, ActivityModule::class])
+	NetworkModule::class, RestModule::class, ActivityModule::class,
+    RepositoryModule::class])
 interface ArchxAppComponent {
 
     fun inject(app: RedditApp)

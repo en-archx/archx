@@ -3,6 +3,7 @@ package co.en.archx.sample.ui.activity.main.list
 sealed class RedditListItem {
 
     data class Reddit(
+            val id: String,
             val author: String,
             val subreddit: String,
             val title: String,

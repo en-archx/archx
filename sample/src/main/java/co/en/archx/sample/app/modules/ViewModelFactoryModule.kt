@@ -3,6 +3,7 @@ package co.en.archx.sample.app.modules
 import android.arch.lifecycle.ViewModelProvider
 import co.en.archx.sample.app.AppScope
 import co.en.archx.sample.app.RedditPresenterFactory
+import co.en.archx.sample.repositories.PostRepository
 import dagger.Module
 import dagger.Provides
 
@@ -14,8 +15,9 @@ class ViewModelFactoryModule {
 
     @Provides
     @AppScope
-    fun viewModelFactory(): ViewModelProvider.Factory {
+    fun viewModelFactory(postRepository: PostRepository)
+            : ViewModelProvider.Factory {
 
-        return RedditPresenterFactory()
+        return RedditPresenterFactory(postRepository)
     }
 }

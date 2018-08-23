@@ -6,6 +6,8 @@ import co.en.archx.sample.app.AppScope
 import co.en.archx.sample.app.ArchxAppContext
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
+import com.jakewharton.picasso.OkHttp3Downloader
+import com.squareup.picasso.Picasso
 import dagger.Module
 import dagger.Provides
 import okhttp3.Cache
@@ -22,12 +24,22 @@ class NetworkModule {
 
     @Provides
     @AppScope
+    fun picasso(@ArchxAppContext context: Context,
+                okHttpClient: OkHttpClient)
+            : Picasso {
+
+        return Picasso.Builder(context)
+                .downloader(OkHttp3Downloader(okHttpClient)).build()
+    }
+
+    @Provides
+    @AppScope
     fun okHttpClient(cache: Cache): OkHttpClient {
 
         val interceptor = HttpLoggingInterceptor {
             message -> Log.i("fm-network", message)
         }
-        interceptor.level = HttpLoggingInterceptor.Level.BASIC
+        interceptor.level = HttpLoggingInterceptor.Level.BODY
 
 
         return OkHttpClient.Builder()
