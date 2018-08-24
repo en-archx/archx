@@ -71,4 +71,4 @@ android {
     }
 }
 
-apply from: '/../script.gradle'
+apply from: '../script.gradle'

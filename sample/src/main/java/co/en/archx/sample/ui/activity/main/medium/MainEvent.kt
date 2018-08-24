@@ -29,7 +29,11 @@ sealed class MainEvent : Event<MainAction> {
         override fun toAction() = MainAction.LoadPost(PostSource.Controversial)
     }
 
-    object ListPulled : MainEvent() {
+    object SwipedRefresh : MainEvent() {
         override fun toAction() = MainAction.Refresh
+    }
+
+    object ListBottomReached : MainEvent() {
+        override fun toAction() = MainAction.LoadMorePost
     }
 }

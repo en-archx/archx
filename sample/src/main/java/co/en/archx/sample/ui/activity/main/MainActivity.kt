@@ -1,18 +1,25 @@
 package co.en.archx.sample.ui.activity.main
 
+import android.app.Activity
 import android.arch.lifecycle.ViewModelProvider
 import android.arch.lifecycle.ViewModelProviders
 import android.os.Build
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
+import android.util.Log
 import android.view.View
+import android.view.inputmethod.InputMethodManager
 import co.en.archx.sample.R
 import co.en.archx.sample.ext.PostSource
+import co.en.archx.sample.ext.ScrollState
+import co.en.archx.sample.ext.state
 import co.en.archx.sample.ui.activity.main.list.RedditAdapter
 import co.en.archx.sample.ui.activity.main.list.RedditListItem
 import co.en.archx.sample.ui.activity.main.medium.MainEvent
 import co.en.archx.sample.ui.activity.main.medium.MainState
+import com.jakewharton.rxbinding2.support.v4.widget.RxSwipeRefreshLayout
+import com.jakewharton.rxbinding2.support.v7.widget.RxRecyclerView
 import com.jakewharton.rxbinding2.view.RxView
 import com.jakewharton.rxbinding2.widget.RxTextView
 import dagger.android.AndroidInjection
@@ -37,6 +44,7 @@ class MainActivity : AppCompatActivity(), MainContract.View {
     private val disposables = CompositeDisposable()
 
     private lateinit var state: MainState
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         AndroidInjection.inject(this)
@@ -75,19 +83,32 @@ class MainActivity : AppCompatActivity(), MainContract.View {
                         .debounce(500, TimeUnit.MILLISECONDS)
                         .filter { textChangeEvent ->
                             (state.source as? PostSource.Search)?.let {
-                                // block if state query == to edit text
-                                it.query == textChangeEvent.view().text.toString()
+                                // block if state query != to edit text
+                                it.query != textChangeEvent.view().text.toString()
                             } ?: textChangeEvent.view().text.toString().isNotEmpty()
                         }
                         .map { MainEvent.SearchTextChanged(it.view().text.toString()) },
                 RxView.clicks(top_button)
+                        .doOnNext { clearAndUnfocus() }
                         .map { MainEvent.TopButtonClicked },
                 RxView.clicks(hot_button)
+                        .doOnNext { clearAndUnfocus() }
                         .map { MainEvent.HotButtonClicked },
                 RxView.clicks(new_button)
+                        .doOnNext { clearAndUnfocus() }
                         .map { MainEvent.NewButtonClicked },
                 RxView.clicks(controversial_button)
-                        .map { MainEvent.ControversialButtonClicked }
+                        .doOnNext { clearAndUnfocus() }
+                        .map { MainEvent.ControversialButtonClicked },
+                RxSwipeRefreshLayout.refreshes(refresh_layout)
+                        .doOnNext { clearAndUnfocus() }
+                        .map { MainEvent.SwipedRefresh },
+                RxRecyclerView.scrollEvents(reddit_list)
+                        .filter {
+                            it.view().state() == ScrollState.HIT_BOTTOM &&
+                                    !state.isLoading
+                        }
+                        .map { MainEvent.ListBottomReached }
         )
     }
 
@@ -104,12 +125,21 @@ class MainActivity : AppCompatActivity(), MainContract.View {
                                     childData.ups) })
 
         items.add(RedditListItem.Footer(state.isLoading, state.error))
-
         adapter.setItems(items)
 
         top_button.isSelected = state.source === PostSource.Top
         hot_button.isSelected = state.source === PostSource.Hot
         new_button.isSelected = state.source === PostSource.New
         controversial_button.isSelected = state.source === PostSource.Controversial
+
+        if(!state.isLoading)
+            refresh_layout.isRefreshing = false
+    }
+
+    private fun clearAndUnfocus() {
+        search_edittext.text.clear()
+        container.requestFocus()
+        (getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager)
+                .toggleSoftInput(InputMethodManager.HIDE_NOT_ALWAYS, 0)
     }
 }

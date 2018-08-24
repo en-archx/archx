@@ -81,7 +81,7 @@ class MainPresenter(private val outputScheduler: Scheduler,
     private fun loadMorePost(): ObservableTransformer<MainAction.LoadMorePost, MainResult> {
 
         return ObservableTransformer {
-            it.filter { cursor.isNotEmpty() }.flatMap {
+            it.filter { cursor.isNotEmpty() }.switchMap {
                 postRepository.getRepo(source, cursor, limit)
                         .map<MainResult> {
                             cursor = it.data.after
