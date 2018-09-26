@@ -1,6 +1,6 @@
 package co.en.archx.sample.app.modules
 
-import android.arch.lifecycle.ViewModelProvider
+import androidx.lifecycle.ViewModelProvider
 import co.en.archx.sample.app.AppScope
 import co.en.archx.sample.app.RedditPresenterFactory
 import co.en.archx.sample.repositories.PostRepository

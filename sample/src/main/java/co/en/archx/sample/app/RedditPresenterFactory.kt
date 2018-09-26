@@ -1,7 +1,7 @@
 package co.en.archx.sample.app
 
-import android.arch.lifecycle.ViewModel
-import android.arch.lifecycle.ViewModelProvider
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
 import co.en.archx.sample.repositories.PostRepository
 import co.en.archx.sample.ui.activity.main.MainPresenter
 import io.reactivex.Scheduler

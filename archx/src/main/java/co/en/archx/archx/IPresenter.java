@@ -16,7 +16,7 @@
 
 package co.en.archx.archx;
 
-import android.arch.lifecycle.ViewModel;
+import androidx.lifecycle.ViewModel;
 import android.util.Log;
 
 import com.jakewharton.rxrelay2.BehaviorRelay;

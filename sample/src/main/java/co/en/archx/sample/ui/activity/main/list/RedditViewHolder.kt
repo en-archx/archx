@@ -1,6 +1,6 @@
 package co.en.archx.sample.ui.activity.main.list
 
-import android.support.v7.widget.RecyclerView
+import androidx.recyclerview.widget.RecyclerView
 import android.view.View
 import co.en.archx.sample.ui.activity.main.list.itemview.ItemView
 

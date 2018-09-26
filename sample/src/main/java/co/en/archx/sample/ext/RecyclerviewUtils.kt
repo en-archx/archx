@@ -1,10 +1,9 @@
 package co.en.archx.sample.ext
 
-import android.support.v7.widget.GridLayoutManager
-import android.support.v7.widget.LinearLayoutManager
-import android.support.v7.widget.RecyclerView
-import android.support.v7.widget.StaggeredGridLayoutManager
-import android.util.Log
+import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import androidx.recyclerview.widget.StaggeredGridLayoutManager
 
 enum class ScrollState {
     SCROLLING, HIT_TOP, HIT_BOTTOM, UNKNOWN
@@ -12,7 +11,7 @@ enum class ScrollState {
 
 fun RecyclerView.state(threshold: Int = 0): ScrollState {
     var lastVisibleItemPosition = 0
-    val lastItemPosition = layoutManager.itemCount - 1
+    val lastItemPosition = layoutManager!!.itemCount - 1
     val _layoutmanager = layoutManager
     var orientation = 1
 
